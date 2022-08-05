@@ -1,0 +1,19 @@
+{
+  "name": "groupomania_backend",
+  "version": "1.0.0",
+  "description": "Backend of Groupomania website",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "dev": "nodemon app"
+  },
+  "author": "Dimitri",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
