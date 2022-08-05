@@ -31,6 +31,26 @@ exports.getAllPosts = async (req, res) => {
     return res.status(500).send({ error: error.message });
   }
 };
-exports.createPost = async (req, res) => {};
+
+exports.createPost = async (req, res) => {
+  try {
+    const userId = req.auth.userId;
+    const userExist = await db.User.findOne({ where: { user_id: userId } });
+    if (userExist) {
+      const post = await db.Post.create({
+        post_content: req.body.content,
+        post_image_url: req.body.image_url,
+        user_id: userId,
+      });
+      return res.status(201).send(post);
+    } else {
+      res.status(401).send("error");
+    }
+  } catch (error) {
+    return res.status(500).send({ error: error.message });
+  }
+};
+
 exports.updatePost = async (req, res) => {};
+
 exports.deletePost = async (req, res) => {};
