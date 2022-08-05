@@ -2,6 +2,11 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 
+const authRoutes = require("./routes/auth");
+
+// Routes
+app.use("/api/auth", authRoutes);
+
 // Connexion à la db
 const { sequelize } = require("./models");
 sequelize
