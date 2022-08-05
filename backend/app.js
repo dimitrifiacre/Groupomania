@@ -12,6 +12,7 @@ app.use(cors());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
+app.use("/img", express.static(path.join(__dirname, "images")));
 
 // Connexion à la db
 const { sequelize } = require("./models");
