@@ -34,12 +34,13 @@ exports.getAllPosts = async (req, res) => {
 
 exports.createPost = async (req, res) => {
   try {
+    const imageUrl = req.file ? `${req.file.filename}` : null;
     const userId = req.auth.userId;
     const userExist = await db.User.findOne({ where: { user_id: userId } });
     if (userExist) {
       const post = await db.Post.create({
         post_content: req.body.content,
-        post_image_url: req.body.image_url,
+        post_image_url: imageUrl,
         user_id: userId,
       });
       return res.status(201).send(post);
