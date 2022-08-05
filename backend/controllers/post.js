@@ -45,7 +45,7 @@ exports.createPost = async (req, res) => {
       });
       return res.status(201).send(post);
     } else {
-      res.status(401).send("error");
+      return res.status(404).json({ error: "L'utilisateur n'a pas été trouvé" });
     }
   } catch (error) {
     return res.status(500).send({ error: error.message });
