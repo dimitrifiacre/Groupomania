@@ -4,12 +4,14 @@ const cors = require("cors");
 require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
+const postRoutes = require("./routes/post");
 
 app.use(express.json());
 app.use(cors());
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/post", postRoutes);
 
 // Connexion à la db
 const { sequelize } = require("./models");
