@@ -39,12 +39,12 @@ exports.createPost = async (req, res) => {
     const userId = req.auth.userId;
     const userExist = await db.User.findOne({ where: { user_id: userId } });
     if (userExist) {
-      const post = await db.Post.create({
+      await db.Post.create({
         post_content: req.body.content,
         post_image_url: imageUrl,
         user_id: userId,
       });
-      return res.status(201).json(post);
+      return res.status(201).json({ message: "La publication a été créee" });
     } else {
       return res.status(404).json({ error: "L'utilisateur n'a pas été trouvé" });
     }
@@ -78,4 +78,26 @@ exports.updatePost = async (req, res) => {
   }
 };
 
-exports.deletePost = async (req, res) => {};
+exports.deletePost = async (req, res) => {
+  try {
+    const userId = req.auth.userId;
+    const postExist = await db.Post.findOne({ where: { post_id: req.params.id } });
+    const userExist = await db.User.findOne({ where: { user_id: userId } });
+
+    if (postExist) {
+      if (postExist.user_id === userId || userExist.user_admin === true) {
+        if (postExist.post_image_url !== null) {
+          fs.unlink(`images/${postExist.post_image_url}`, () => {});
+        }
+        await db.Post.destroy({ where: { post_id: req.params.id } });
+        return res.status(200).json({ message: "La publication a été supprimée" });
+      } else {
+        return res.status(401).json({ error: "Vous n'avez pas le droit de supprimer cette publication" });
+      }
+    } else {
+      return res.status(404).json({ error: "La publication n'a pas été trouvée" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error });
+  }
+};
