@@ -27,9 +27,9 @@ exports.getAllPosts = async (req, res) => {
         },
       ],
     });
-    res.status(200).send(posts);
+    res.status(200).json(posts);
   } catch (error) {
-    return res.status(500).send({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 
@@ -44,12 +44,12 @@ exports.createPost = async (req, res) => {
         post_image_url: imageUrl,
         user_id: userId,
       });
-      return res.status(201).send(post);
+      return res.status(201).json(post);
     } else {
       return res.status(404).json({ error: "L'utilisateur n'a pas été trouvé" });
     }
   } catch (error) {
-    return res.status(500).send({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
 
