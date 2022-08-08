@@ -1,4 +1,5 @@
 const db = require("../models");
+const fs = require("fs");
 
 exports.getAllPosts = async (req, res) => {
   try {
@@ -52,6 +53,29 @@ exports.createPost = async (req, res) => {
   }
 };
 
-exports.updatePost = async (req, res) => {};
+exports.updatePost = async (req, res) => {
+  try {
+    const userId = req.auth.userId;
+    const postExist = await db.Post.findOne({ where: { post_id: req.params.id } });
+    const userExist = await db.User.findOne({ where: { user_id: userId } });
+
+    if (postExist) {
+      if (postExist.user_id === userId || userExist.user_admin === true) {
+        const imageUrl = req.file ? `${req.file.filename}` : null;
+        const postObject = req.file
+          ? { ...fs.unlink(`images/${postExist.post_image_url}`, () => {}), post_content: req.body.content, post_image_url: imageUrl }
+          : { ...fs.unlink(`images/${postExist.post_image_url}`, () => {}), post_content: req.body.content, post_image_url: imageUrl };
+        await db.Post.update({ ...postObject }, { where: { post_id: req.params.id } });
+        return res.status(200).json({ message: "La publication a été modifiée" });
+      } else {
+        return res.status(401).json({ error: "Vous n'avez pas le droit de modifier cette publication" });
+      }
+    } else {
+      return res.status(404).json({ error: "La publication n'a pas été trouvée" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error });
+  }
+};
 
 exports.deletePost = async (req, res) => {};
