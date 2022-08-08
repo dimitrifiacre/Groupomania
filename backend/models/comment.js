@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       comment_id: { type: DataTypes.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true },
       user_id: { type: DataTypes.INTEGER, allowNull: false },
       post_id: { type: DataTypes.INTEGER, allowNull: false },
-      comment_content: { type: DataTypes.TEXT, allowNull: false },
+      comment_content: { type: DataTypes.TEXT, allowNull: false, validate: { notEmpty: { args: true, msg: "Le contenu du commentaire ne peut pas être vide" } } },
       comment_creation_date: { type: DataTypes.DATE, allowNull: false },
       comment_modification_date: { type: DataTypes.DATE, allowNull: false },
     },

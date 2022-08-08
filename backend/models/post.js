@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       post_id: { type: DataTypes.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true },
       user_id: { type: DataTypes.INTEGER, allowNull: false },
-      post_content: { type: DataTypes.TEXT, allowNull: false },
+      post_content: { type: DataTypes.TEXT, allowNull: false, validate: { notEmpty: { args: true, msg: "Le contenu de la publication ne peut pas être vide" } } },
       post_image_url: { type: DataTypes.STRING, allowNull: true },
       post_creation_date: { type: DataTypes.DATE, allowNull: false },
       post_modification_date: { type: DataTypes.DATE, allowNull: false },
