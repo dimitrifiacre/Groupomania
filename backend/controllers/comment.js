@@ -47,4 +47,23 @@ exports.updateComment = async (req, res) => {
   }
 };
 
-exports.deleteComment = async (req, res) => {};
+exports.deleteComment = async (req, res) => {
+  try {
+    const userId = req.auth.userId;
+    const commentExist = await db.Comment.findOne({ where: { comment_id: req.params.id } });
+    const userExist = await db.User.findOne({ where: { user_id: userId } });
+
+    if (commentExist) {
+      if (commentExist.user_id === userId || userExist.user_admin === true) {
+        await db.Comment.destroy({ where: { comment_id: req.params.id } });
+        return res.status(200).json({ message: "Le commentaire a été supprimé" });
+      } else {
+        return res.status(401).json({ error: "Vous n'avez pas le droit de supprimer ce commentaire" });
+      }
+    } else {
+      return res.status(404).json({ error: "Le commentaire n'a pas été trouvé" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
