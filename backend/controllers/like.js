@@ -30,4 +30,23 @@ exports.addLike = async (req, res) => {
   }
 };
 
-exports.removeLike = async (req, res) => {};
+exports.removeLike = async (req, res) => {
+  try {
+    const userId = req.auth.userId;
+    const likeId = req.params.id;
+    const likeExist = await db.Like.findOne({ where: { like_id: likeId } });
+
+    if (likeExist) {
+      if (likeExist.user_id === userId) {
+        await db.Like.destroy({ where: { like_id: likeId } });
+        return res.status(200).json({ message: "Le j'aime a été supprimé" });
+      } else {
+        return res.status(401).json({ error: "Vous n'avez pas le droit de supprimer ce j'aime" });
+      }
+    } else {
+      return res.status(404).json({ error: "Le j'aime n'a pas été trouvé" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
