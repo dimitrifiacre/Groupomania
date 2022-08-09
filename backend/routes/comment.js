@@ -4,6 +4,6 @@ const auth = require("../middleware/authJwt");
 
 router.post("/:id", auth, createComment);
 router.put("/:id", auth, updateComment);
-router.delete("/:id", auth, deleteComment);
+router.delete("/delete/:id", auth, deleteComment);
 
 module.exports = router;
