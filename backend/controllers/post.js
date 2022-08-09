@@ -62,9 +62,7 @@ exports.updatePost = async (req, res) => {
     if (postExist) {
       if (postExist.user_id === userId || userExist.user_admin === true) {
         const imageUrl = req.file ? `${req.file.filename}` : null;
-        const postObject = req.file
-          ? { ...fs.unlink(`images/${postExist.post_image_url}`, () => {}), post_content: req.body.content, post_image_url: imageUrl }
-          : { ...fs.unlink(`images/${postExist.post_image_url}`, () => {}), post_content: req.body.content, post_image_url: imageUrl };
+        const postObject = { ...fs.unlink(`images/${postExist.post_image_url}`, () => {}), post_content: req.body.content, post_image_url: imageUrl };
         await db.Post.update({ ...postObject }, { where: { post_id: req.params.id } });
         return res.status(200).json({ message: "La publication a été modifiée" });
       } else {
