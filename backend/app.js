@@ -8,6 +8,7 @@ require("dotenv").config();
 const authRoutes = require("./routes/auth");
 const postRoutes = require("./routes/post");
 const commentRoutes = require("./routes/comment");
+const likeRoutes = require("./routes/like");
 
 app.use(express.json());
 app.use(cookieParser());
@@ -17,6 +18,7 @@ app.use(cors());
 app.use("/api/auth", authRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
+app.use("/api/like", likeRoutes);
 app.use("/img", express.static(path.join(__dirname, "images")));
 
 // Connexion à la db
