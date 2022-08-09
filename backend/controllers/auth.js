@@ -29,13 +29,21 @@ exports.userLogin = async (req, res) => {
       const passwordIsValid = await bcrypt.compareSync(req.body.password, userExist.user_password);
       if (passwordIsValid) {
         const token = jwt.sign({ userId: userExist.user_id }, process.env.SECRET_TOKEN, { expiresIn: "24h" });
-        return res.status(200).json({ userId: userExist.user_id, accessToken: token });
+        return res.cookie("sessionToken", token).status(200).json({ message: "Vous venez de vous connecter" });
       } else {
         return res.status(401).json({ error: "Le mot de passe est incorrect" });
       }
     } else {
       return res.status(404).json({ error: "L'utilisateur n'a pas été trouvé" });
     }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+exports.userLogout = async (req, res) => {
+  try {
+    return res.clearCookie("sessionToken").status(200).json({ message: "Vous venez de vous déconnecter" });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
