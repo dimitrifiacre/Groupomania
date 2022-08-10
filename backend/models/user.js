@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
   User.init(
     {
       user_id: { type: DataTypes.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true },
-      user_firstname: { type: DataTypes.STRING, allowNull: false, validate: { is: { args: ["^[a-zéèçà]{2,50}(-| )?([a-zéèçà]{2,50})?$", "i"], msg: "Le prénom n'est pas valide" } } },
-      user_lastname: { type: DataTypes.STRING, allowNull: false, validate: { is: { args: ["^[a-zéèçà]{2,50}(-| )?([a-zéèçà]{2,50})?$", "i"], msg: "Le nom de famille n'est pas valide" } } },
-      user_email: { type: DataTypes.STRING, allowNull: false, unique: true, validate: { isEmail: { args: true, msg: "L'adresse email n'est pas valide" } } },
+      user_firstname: { type: DataTypes.STRING, allowNull: false },
+      user_lastname: { type: DataTypes.STRING, allowNull: false },
+      user_email: { type: DataTypes.STRING, allowNull: false, unique: true },
       user_password: { type: DataTypes.STRING, allowNull: false },
       user_avatar_url: { type: DataTypes.STRING, allowNull: true, defaultValue: null },
       user_job: { type: DataTypes.STRING, allowNull: true, defaultValue: null },
