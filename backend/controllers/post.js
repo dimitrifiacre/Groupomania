@@ -72,7 +72,7 @@ exports.updatePost = async (req, res) => {
       return res.status(404).json({ error: "La publication n'a pas été trouvée" });
     }
   } catch (error) {
-    return res.status(500).json({ error: error });
+    return res.status(500).json({ error: error.message });
   }
 };
 
@@ -96,6 +96,6 @@ exports.deletePost = async (req, res) => {
       return res.status(404).json({ error: "La publication n'a pas été trouvée" });
     }
   } catch (error) {
-    return res.status(500).json({ error: error });
+    return res.status(500).json({ error: error.message });
   }
 };
