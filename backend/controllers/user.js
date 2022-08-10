@@ -40,4 +40,26 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-exports.deleteUser = async (req, res) => {};
+exports.deleteUser = async (req, res) => {
+  try {
+    const userId = req.auth.userId;
+    const userExist = await db.User.findOne({ where: { user_id: req.params.id } });
+
+    if (userExist) {
+      if (userExist.user_id === userId) {
+        if (userExist.user_avatar_url !== null) {
+          fs.unlink(`images/${userExist.user_avatar_url}`, () => {});
+        }
+
+        await db.User.destroy({ where: { user_id: req.params.id } });
+        return res.clearCookie("sessionToken").status(200).json({ message: "Vous venez de supprimer votre compte" });
+      } else {
+        return res.status(401).json({ error: "Vous n'avez pas le droit de supprimer cet utilisateur" });
+      }
+    } else {
+      return res.status(404).json({ error: "L'utilisateur n'a pas été trouvé" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
