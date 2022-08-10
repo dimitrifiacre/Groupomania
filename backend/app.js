@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const helmet = require("helmet");
 require("dotenv").config();
 
 const authRoutes = require("./routes/auth");
@@ -14,6 +15,7 @@ const likeRoutes = require("./routes/like");
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
+app.use(helmet());
 
 // Routes
 app.use("/api/auth", authRoutes);
