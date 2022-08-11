@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const { userRegister, userLogin, userLogout } = require("../controllers/auth");
-const { validEmail, validPassword } = require("../middleware/validInputs");
+const { validEmail, validPassword, validNames } = require("../middleware/validInputs");
 
-router.post("/register", validEmail, validPassword, userRegister);
+router.post("/register", validEmail, validPassword, validNames, userRegister);
 router.post("/login", userLogin);
 router.post("/logout", userLogout);
 

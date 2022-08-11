@@ -23,3 +23,16 @@ exports.validEmail = async (req, res, next) => {
     return res.status(500).send({ error: error.message });
   }
 };
+
+exports.validNames = async (req, res, next) => {
+  try {
+    const namesRegex = new RegExp("^([a-zA-Zà-ÿÀ-Ÿ-].{2,})$");
+    if (namesRegex.test(req.body.firstname) && namesRegex.test(req.body.lastname)) {
+      next();
+    } else {
+      return res.status(401).json({ error: "Le prénom et/ou le nom de famille ne sont pas valides" });
+    }
+  } catch (error) {
+    return res.status(500).send({ error: error.message });
+  }
+};
