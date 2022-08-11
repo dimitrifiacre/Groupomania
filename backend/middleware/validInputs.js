@@ -10,3 +10,16 @@ exports.validPassword = async (req, res, next) => {
     return res.status(500).send({ error: error.message });
   }
 };
+
+exports.validEmail = async (req, res, next) => {
+  try {
+    const emailRegex = new RegExp("^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$");
+    if (emailRegex.test(req.body.email)) {
+      next();
+    } else {
+      return res.status(401).json({ error: "L'adresse email n'est pas valide" });
+    }
+  } catch (error) {
+    return res.status(500).send({ error: error.message });
+  }
+};
