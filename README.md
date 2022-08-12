@@ -17,3 +17,29 @@
 - Authentifier un utilisateur et maintenir sa session
 - Implémenter un stockage de données sécurisé en utilisant une base de données
 - Développer l’interface d’un site web grâce à un framework front-end
+ 
+## Installation backend
+1. Installer les dépendences
+*(dans le dossier `backend`)*
+     ```
+     npm install
+     ```
+2. Configurer les variables d'environnement  
+Modifier le nom du fichier **example.env** en **.env** et remplir toutes les informations pour gérer la connexion à votre base de donnée (**mysql** est conseillé).
+3. Créer la base de donnée
+    ```
+    npx sequelize-cli db:migrate
+    ```
+4. Lancer le serveur
+    ```
+    npm start
+    ```
+    *Port par défaut : `3000` (http://localhost:3000)*
+5. Utiliser le compte de démonstration  
+Générer le compte administrateur :
+    ```
+    npx sequelize-cli db:seed:all
+    ```
+    Utiliser les identifiants `admin@groupomania.com` pour l'email et `Password1234` pour le mot de passe.
+    > **Warning**
+    > Par sécurité, supprimer l'utilisateur si le projet devient public.
