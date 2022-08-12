@@ -36,3 +36,16 @@ exports.validNames = async (req, res, next) => {
     return res.status(500).send({ error: error.message });
   }
 };
+
+exports.validContent = async (req, res, next) => {
+  try {
+    const contentRegex = new RegExp("^.{1,}$");
+    if (contentRegex.test(req.body.content)) {
+      next();
+    } else {
+      return res.status(401).json({ error: "Le contenu ne peut pas être vide" });
+    }
+  } catch (error) {
+    return res.status(500).send({ error: error.message });
+  }
+};
