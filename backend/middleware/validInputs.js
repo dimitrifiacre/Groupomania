@@ -49,3 +49,16 @@ exports.validContent = async (req, res, next) => {
     return res.status(500).send({ error: error.message });
   }
 };
+
+exports.validJob = async (req, res, next) => {
+  try {
+    const jobRegex = new RegExp("^.{4,}$");
+    if (jobRegex.test(req.body.job)) {
+      next();
+    } else {
+      return res.status(401).json({ error: "Le travail ne peut pas être vide" });
+    }
+  } catch (error) {
+    return res.status(500).send({ error: error.message });
+  }
+};
