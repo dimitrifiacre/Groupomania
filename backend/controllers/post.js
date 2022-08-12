@@ -4,7 +4,7 @@ const fs = require("fs");
 exports.getAllPosts = async (req, res) => {
   try {
     const posts = await db.Post.findAll({
-      attributes: ["post_id", "post_content", "post_image_url", "post_creation_date", "post_modification_date"],
+      attributes: ["post_id", "post_content", "post_image_url", "post_creation_date"],
       order: [["post_creation_date", "DESC"]],
       include: [
         {
@@ -17,7 +17,8 @@ exports.getAllPosts = async (req, res) => {
         },
         {
           model: db.Comment,
-          attributes: ["comment_id", "comment_content"],
+          attributes: ["comment_id", "comment_content", "comment_creation_date"],
+          order: [["comment_creation_date", "DESC"]],
           include: [
             {
               model: db.User,
