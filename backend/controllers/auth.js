@@ -29,7 +29,7 @@ exports.userLogin = async (req, res) => {
       const passwordIsValid = await bcrypt.compareSync(req.body.password, userExist.user_password);
       if (passwordIsValid) {
         const token = jwt.sign({ userId: userExist.user_id }, process.env.SECRET_TOKEN, { expiresIn: "365d" });
-        return res.cookie("sessionToken", token).status(200).json({ message: "Vous venez de vous connecter" });
+        return res.cookie("sessionToken", token).status(200).json({ userId: userExist.user_id, sessionToken: token });
       } else {
         return res.status(401).json({ error: "Le mot de passe est incorrect" });
       }
