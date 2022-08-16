@@ -12,9 +12,17 @@ const postRoutes = require("./routes/post");
 const commentRoutes = require("./routes/comment");
 const likeRoutes = require("./routes/like");
 
+// Options pour le package cors
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  allowedHeaders: ["Content-Type"],
+  methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+};
+
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(helmet());
 
 // Routes
