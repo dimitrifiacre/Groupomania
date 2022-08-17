@@ -41,7 +41,7 @@ sequelize
   .catch((error) => console.log("Connexion à la base de donnée échouée : " + error));
 
 // Écoute sur un port
-const port = process.env.SERVER_PORT || 3000;
+const port = process.env.SERVER_PORT || 5000;
 app.listen(port, () => {
   console.log(`Le serveur a été lancé sur le port ${port}`);
 });
