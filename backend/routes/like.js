@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const { addLike, removeLike } = require("../controllers/like");
-const auth = require("../middleware/authJwt");
+const { authJwt } = require("../middleware/authJwt");
 
-router.post("/:id", auth, addLike);
-router.delete("/delete/:id", auth, removeLike);
+router.post("/:id", authJwt, addLike);
+router.delete("/delete/:id", authJwt, removeLike);
 
 module.exports = router;
