@@ -41,6 +41,17 @@
       background-color: #dbdada;
     }
   }
+
+  &-image_preview {
+    position: relative;
+    max-width: max-content;
+    margin-top: 16px;
+
+    & img {
+      border-radius: 15px;
+      width: 100%;
+    }
+  }
 }
 
 ::placeholder {

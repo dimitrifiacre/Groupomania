@@ -44,6 +44,21 @@
   }
 }
 
+.btn-edit_image {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  padding: 0px;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
 .btn-icon {
   width: 40px;
   padding: 0px;
