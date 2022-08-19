@@ -1,0 +1,51 @@
+@import "../../index.scss";
+
+.btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  height: 40px;
+  font-weight: 700;
+  border-radius: 20px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-primary {
+  background-color: $color-primary;
+  color: $color-light-1;
+  border: none;
+
+  &:hover {
+    background-color: $color-primary-hover;
+  }
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: $color-black;
+  border: 1px solid $color-grey-1;
+
+  &:hover {
+    background-color: $color-grey-1;
+  }
+}
+
+.btn-tertiary {
+  background-color: transparent;
+  color: $color-grey-2;
+  border: none;
+
+  &:hover {
+    background-color: $color-light-3;
+  }
+}
+
+.btn-icon {
+  width: 40px;
+  padding: 0px;
+  overflow: inherit;
+}
