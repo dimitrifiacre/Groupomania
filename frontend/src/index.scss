@@ -16,8 +16,8 @@ $color-black: #000000;
 
 $color-error: #fa3a38;
 $color-error-light: rgba(250, 58, 56, 0.2);
-$color-error: #00b200;
-$color-error-light: rgba(51, 255, 51, 0.2);
+$color-sucess: #00b200;
+$color-sucess-light: rgba(51, 255, 51, 0.2);
 
 @mixin flex-row-center {
   display: flex;

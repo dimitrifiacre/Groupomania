@@ -1,0 +1,18 @@
+@import "../../index.scss";
+
+.alert {
+  @include flex-row-center;
+  padding: 12px 24px;
+  border-radius: 10px;
+  gap: 12px;
+
+  &-error {
+    background-color: $color-error-light;
+    color: $color-error;
+  }
+
+  &-success {
+    background-color: $color-sucess-light;
+    color: $color-sucess;
+  }
+}
