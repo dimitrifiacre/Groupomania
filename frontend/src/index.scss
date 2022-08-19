@@ -19,6 +19,18 @@ $color-error-light: rgba(250, 58, 56, 0.2);
 $color-error: #00b200;
 $color-error-light: rgba(51, 255, 51, 0.2);
 
+@mixin flex-row-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 * {
   margin: 0;
   padding: 0;
