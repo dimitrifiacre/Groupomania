@@ -43,3 +43,11 @@ $color-sucess-light: rgba(51, 255, 51, 0.2);
 body {
   background-color: $color-light-2;
 }
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
