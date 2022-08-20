@@ -42,7 +42,7 @@ const Input = ({ type, id, name, placeholder, getFile }) => {
         <div className="input-image_preview">
           <img src={URL.createObjectURL(selectedImage)} />
           <button className="btn btn-edit_image" onClick={removeSelectedImage}>
-            <IcomoonReact iconSet={iconSet} size={14} icon="delete" color="#fff" />
+            <IcomoonReact iconSet={iconSet} size={12} icon="delete" color="#fff" />
           </button>
         </div>
       )}
