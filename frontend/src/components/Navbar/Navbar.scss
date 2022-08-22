@@ -18,5 +18,21 @@
       margin: auto;
       padding: 0;
     }
+
+    & a {
+      line-height: 12px;
+    }
+  }
+
+  &__logo {
+    background: no-repeat url("../../assets/groupomania_icon.png");
+    width: 39px;
+    height: 40px;
+
+    @media screen and (min-width: 540px) {
+      background: no-repeat url("../../assets/groupomania_logo.png");
+      width: 242px;
+      height: 40px;
+    }
   }
 }
