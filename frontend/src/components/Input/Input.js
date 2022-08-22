@@ -25,19 +25,17 @@ const Input = ({ type, id, name, placeholder, getFile }) => {
 
   return (
     <>
-      <div className="input-group">
-        {getFile ? (
-          <>
-            <textarea className="input-text input-textarea" id={id} name={name} value={inputValue} placeholder={placeholder} onChange={handleInput}></textarea>
-            <input type="file" id="file" accept=".png,.jpg,.jpeg,.gif" onChange={changeImage} />
-            <label className="input-file" htmlFor="file">
-              <IcomoonReact iconSet={iconSet} size={14} icon="image-plus" color="#8f8a8a" />
-            </label>
-          </>
-        ) : (
-          <input className="input-text" type={type} id={id} name={name} value={inputValue} placeholder={placeholder} onChange={handleInput} />
-        )}
-      </div>
+      {getFile ? (
+        <div className="input-group">
+          <textarea className="input-text input-textarea" id={id} name={name} value={inputValue} placeholder={placeholder} onChange={handleInput}></textarea>
+          <input type="file" id="file" accept=".png,.jpg,.jpeg,.gif" onChange={changeImage} />
+          <label className="input-file" htmlFor="file">
+            <IcomoonReact iconSet={iconSet} size={14} icon="image-plus" color="#8f8a8a" />
+          </label>
+        </div>
+      ) : (
+        <input className="input-text" type={type} id={id} name={name} value={inputValue} placeholder={placeholder} onChange={handleInput} />
+      )}
       {selectedImage && (
         <div className="input-image_preview">
           <img src={URL.createObjectURL(selectedImage)} />
