@@ -1,7 +1,7 @@
 import React from "react";
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/groupomania_logo.png";
 import avatarImg from "../../assets/default-avatar.png";
 import Avatar from "../Avatar/Avatar";
 

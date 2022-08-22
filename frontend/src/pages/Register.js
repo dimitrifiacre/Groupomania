@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import RegisterForm from "../components/Forms/RegisterForm";
-import logo from "../assets/logo.png";
+import logo from "../assets/groupomania_logo.png";
 
 const Register = () => {
   document.title = "S'inscrire – Groupomania";

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import LoginForm from "../components/Forms/LoginForm";
-import logo from "../assets/logo.png";
+import logo from "../assets/groupomania_logo.png";
 
 const Login = () => {
   document.title = "Se connecter – Groupomania";
