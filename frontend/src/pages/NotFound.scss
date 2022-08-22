@@ -1,0 +1,17 @@
+@import "../index.scss";
+
+.error {
+  &__title {
+    color: $color-primary;
+    font-size: 128px;
+    font-weight: 700;
+  }
+
+  &__subtitle {
+    font-size: 24px;
+  }
+}
+
+a:hover {
+  text-decoration: none;
+}
