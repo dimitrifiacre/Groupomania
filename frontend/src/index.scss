@@ -19,6 +19,10 @@ $color-error-light: rgba(250, 58, 56, 0.2);
 $color-sucess: #00b200;
 $color-sucess-light: rgba(51, 255, 51, 0.2);
 
+$breakpoints: (
+  computer: 740px,
+);
+
 @mixin flex-row-center {
   display: flex;
   flex-direction: row;
@@ -31,13 +35,19 @@ $color-sucess-light: rgba(51, 255, 51, 0.2);
   justify-content: center;
 }
 
+@mixin flex-column-skretch {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Lato", sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 body {
@@ -50,4 +60,60 @@ img {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+}
+
+a {
+  color: $color-primary;
+  text-decoration: none;
+  font-weight: 700;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.container {
+  height: auto;
+  @include flex-center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px 0;
+
+  &--form {
+    height: 100vh;
+    overflow: hidden;
+
+    @media screen and (min-width: 540px) {
+      max-width: 540px !important;
+      margin: auto !important;
+    }
+  }
+
+  @media screen and (min-width: map-get($breakpoints, computer)) {
+    max-width: 740px;
+    margin: auto;
+  }
+}
+
+.card {
+  width: 100%;
+  @include flex-column-skretch;
+  padding: 24px;
+  gap: 16px;
+  background: $color-light-1;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.025);
+
+  &--form {
+    @media screen and (min-width: 540px) {
+      border-radius: 20px;
+    }
+  }
+
+  @media screen and (min-width: map-get($breakpoints, computer)) {
+    border-radius: 20px;
+  }
+}
+
+.text-center {
+  text-align: center;
 }
