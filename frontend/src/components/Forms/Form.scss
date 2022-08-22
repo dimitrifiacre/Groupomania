@@ -8,5 +8,11 @@
     &--inputs {
       gap: 12px;
     }
+
+    &__names {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+    }
   }
 }
