@@ -8,11 +8,15 @@ import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import Navbar from "./components/Navbar/Navbar";
+import { useDispatch } from "react-redux";
+import { getUser } from "./store/actions/userActions";
 
 const App = () => {
   const [userId, setUserId] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    // Récupérer le userId de l'utilisateur connecté
     const checkJwt = async () => {
       axios
         .get("api/auth/checkjwt")
@@ -20,6 +24,11 @@ const App = () => {
         .catch((err) => console.log(err));
     };
     checkJwt();
+
+    // Envoi toutes les données dans mon store (redux)
+    if (userId) {
+      dispatch(getUser(userId));
+    }
   }, [userId]);
 
   return (
