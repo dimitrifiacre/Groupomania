@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
+import Navbar from "./components/Navbar/Navbar";
 
 const App = () => {
   const [userId, setUserId] = useState(null);
@@ -24,14 +25,15 @@ const App = () => {
   return (
     <UserContext.Provider value={userId}>
       <Router>
+        {userId && <Navbar />}
         <Routes>
-          {/* Private routes */}
+          {/* Public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/* Public routes */}
+          <Route path="*" element={<NotFound />} />
+          {/* Private routes */}
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </UserContext.Provider>
