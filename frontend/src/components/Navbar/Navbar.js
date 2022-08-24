@@ -4,23 +4,21 @@ import { Link } from "react-router-dom";
 import avatarImg from "../../assets/default-avatar.png";
 import Avatar from "../Avatar/Avatar";
 import { useSelector } from "react-redux";
+import { isEmpty } from "../Utils";
 
 const Navbar = () => {
   const [imgSrc, setImgSrc] = useState("");
   const userData = useSelector((state) => state.user.user);
 
   useEffect(() => {
-    try {
-      const userAvatar = userData && userData.user_avatar_url;
-      if (userAvatar == null) {
+    if (!isEmpty(userData)) {
+      if (userData.user_avatar_url == null) {
         setImgSrc(avatarImg);
       } else {
         setImgSrc(`${process.env.REACT_APP_API_URL}img/${userData.user_avatar_url}`);
       }
-    } catch (error) {
-      throw error;
     }
-  });
+  }, [userData]);
 
   return (
     <nav className="nav">
