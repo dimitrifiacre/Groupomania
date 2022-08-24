@@ -10,6 +10,8 @@ import Register from "./pages/Register";
 import Navbar from "./components/Navbar/Navbar";
 import { useDispatch } from "react-redux";
 import { getUser } from "./store/actions/userActions";
+import PrivateRoute from "./components/Routes/PrivateRoute";
+import PublicRoute from "./components/Routes/PublicRoute";
 
 const App = () => {
   const [userId, setUserId] = useState(null);
@@ -29,7 +31,7 @@ const App = () => {
     if (userId) {
       dispatch(getUser(userId));
     }
-  }, [userId]);
+  }, [userId, dispatch]);
 
   return (
     <UserContext.Provider value={userId}>
@@ -37,12 +39,40 @@ const App = () => {
         {userId && <Navbar />}
         <Routes>
           {/* Public routes */}
-          <Route path="/login" element={!userId ? <Login /> : <Navigate to="/" />} />
-          <Route path="/register" element={!userId ? <Register /> : <Navigate to="/" />} />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            }
+          />
           <Route path="*" element={<NotFound />} />
           {/* Private routes */}
-          <Route path="/" element={userId ? <Home /> : <Navigate to="/login" />} />
-          <Route path="/profile" element={userId ? <Profile /> : <Navigate to="/login" />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </Router>
     </UserContext.Provider>
