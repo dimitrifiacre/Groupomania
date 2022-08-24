@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { UserContext } from "./components/AppContext";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -18,7 +18,7 @@ const App = () => {
   useEffect(() => {
     // Récupérer le userId de l'utilisateur connecté
     const checkJwt = async () => {
-      axios
+      await axios
         .get("api/auth/checkjwt")
         .then((res) => setUserId(res.data))
         .catch((err) => console.log(err));
@@ -37,12 +37,12 @@ const App = () => {
         {userId && <Navbar />}
         <Routes>
           {/* Public routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={!userId ? <Login /> : <Navigate to="/" />} />
+          <Route path="/register" element={!userId ? <Register /> : <Navigate to="/" />} />
           <Route path="*" element={<NotFound />} />
           {/* Private routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={userId ? <Home /> : <Navigate to="/login" />} />
+          <Route path="/profile" element={userId ? <Profile /> : <Navigate to="/login" />} />
         </Routes>
       </Router>
     </UserContext.Provider>
