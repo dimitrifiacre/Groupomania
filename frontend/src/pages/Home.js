@@ -1,5 +1,5 @@
 import React from "react";
-import NewPost from "../components/Posts/NewPost";
+import PostForm from "../components/Forms/PostForm";
 
 const Home = () => {
   document.title = "Fil d'actualité – Groupomania";
@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <>
       <div className="container">
-        <NewPost />
+        <PostForm />
       </div>
     </>
   );
