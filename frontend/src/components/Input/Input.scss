@@ -2,6 +2,7 @@
 
 .input {
   &-group {
+    width: 100%;
     @include flex-row-center;
     position: relative;
   }
@@ -16,6 +17,7 @@
     border-radius: 20px;
     border: none;
     outline: none;
+    line-height: 16px;
 
     &:focus {
       box-shadow: inset 0 0 0 1px $color-grey-1;
@@ -25,6 +27,7 @@
   &-textarea {
     overflow: hidden;
     resize: none;
+    line-height: 18px;
   }
 
   &-file {
@@ -43,9 +46,9 @@
   }
 
   &-image_preview {
+    display: flex;
     position: relative;
     max-width: max-content;
-    margin-top: 16px;
 
     & img {
       border-radius: 15px;
