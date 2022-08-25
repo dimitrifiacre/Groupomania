@@ -1,0 +1,33 @@
+@import "../../index.scss";
+
+.post {
+  &__header {
+    @include flex-row-center;
+    position: relative;
+  }
+
+  &__infos {
+    display: flex;
+    gap: 12px;
+  }
+}
+
+.infos {
+  &__group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  &__name {
+    font-weight: 600;
+    @include flex-row-center;
+    gap: 4px;
+  }
+
+  &__date {
+    color: $color-grey-2;
+  }
+}

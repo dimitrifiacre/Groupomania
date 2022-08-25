@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import Navbar from "./components/Navbar/Navbar";
 import { useDispatch } from "react-redux";
 import { getUser } from "./store/actions/userActions";
+import { getAllPosts } from "./store/actions/postActions";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
 
@@ -30,6 +31,7 @@ const App = () => {
     // Envoi toutes les données dans mon store (redux)
     if (userId) {
       dispatch(getUser(userId));
+      dispatch(getAllPosts());
     }
   }, [userId, dispatch]);
 
