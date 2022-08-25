@@ -11,12 +11,16 @@ import IcomoonReact from "icomoon-react";
 const PostCard = ({ post }) => {
   const [imgSrc, setImgSrc] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
   const userData = useSelector((state) => state.user.user);
 
   useEffect(() => {
     if (!isEmpty(userData)) {
-      if (userData.user_admin == true) {
+      if (userData.user_admin === true) {
         setIsAdmin(true);
+      }
+      if (userData.user_id === post.User.user_id) {
+        setIsOwner(true);
       }
     }
   }, [userData]);
@@ -41,9 +45,12 @@ const PostCard = ({ post }) => {
             <span className="infos__date">{post.post_creation_date}</span>
           </div>
         </div>
-        {isAdmin && <Button className="btn btn-tertiary btn-admin" icon="more-menu" color="#8f8a8a"></Button>}
+        {(isAdmin || isOwner) && <Button className="btn btn-tertiary btn-admin" icon="more-menu" color="#8f8a8a"></Button>}
       </div>
-      <div className="post__content">{post.post_content}</div>
+      <div className="post__content">
+        {post.post_content}
+        {post.post_image_url ? <img className="post__image" crossOrigin="anonymous" src={`${process.env.REACT_APP_API_URL}img/${post.post_image_url}`} alt="Photo de la publication" /> : null}
+      </div>
     </div>
   );
 };
