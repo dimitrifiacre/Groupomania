@@ -7,6 +7,7 @@ import Button from "../Button/Button";
 import { isEmpty } from "../Utils";
 import iconSet from "../../fonts/selection.json";
 import IcomoonReact from "icomoon-react";
+import PostLike from "./PostLike";
 
 const PostCard = ({ post }) => {
   const [imgSrc, setImgSrc] = useState("");
@@ -16,12 +17,8 @@ const PostCard = ({ post }) => {
 
   useEffect(() => {
     if (!isEmpty(userData)) {
-      if (userData.user_admin === true) {
-        setIsAdmin(true);
-      }
-      if (userData.user_id === post.User.user_id) {
-        setIsOwner(true);
-      }
+      if (userData.user_admin === true) setIsAdmin(true);
+      if (userData.user_id === post.User.user_id) setIsOwner(true);
     }
   }, [userData]);
 
@@ -49,7 +46,14 @@ const PostCard = ({ post }) => {
       </div>
       <div className="post__content">
         {post.post_content}
-        {post.post_image_url ? <img className="post__image" crossOrigin="anonymous" src={`${process.env.REACT_APP_API_URL}img/${post.post_image_url}`} alt="Photo de la publication" /> : null}
+        {post.post_image_url && <img className="post__image" crossOrigin="anonymous" src={`${process.env.REACT_APP_API_URL}img/${post.post_image_url}`} alt="Photo de la publication" />}
+      </div>
+      <div className="post__footer">
+        <PostLike post={post} />
+        <div className="post__comments">
+          <IcomoonReact iconSet={iconSet} size={18} icon="comment" color="#8F8A8A" />
+          {post.Comments.length}
+        </div>
       </div>
     </div>
   );
