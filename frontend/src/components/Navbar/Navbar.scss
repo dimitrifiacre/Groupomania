@@ -35,4 +35,9 @@
       height: 40px;
     }
   }
+
+  &__profile {
+    display: flex;
+    gap: 12px;
+  }
 }
