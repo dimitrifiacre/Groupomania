@@ -12,6 +12,16 @@ const getAllPosts = () => {
   };
 };
 
+const createPost = (data) => {
+  return async () => {
+    try {
+      await axios.post("api/post", data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 const updatePost = (postId, content) => {
   return async (dispatch) => {
     try {
@@ -45,4 +55,4 @@ const removeLikePost = (postId, userId) => {
   };
 };
 
-export { getAllPosts, updatePost, addLikePost, removeLikePost };
+export { getAllPosts, createPost, updatePost, addLikePost, removeLikePost };

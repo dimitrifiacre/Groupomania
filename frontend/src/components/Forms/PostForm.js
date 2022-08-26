@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./Form.scss";
 import Button from "../Button/Button";
-import axios from "axios";
 import Alert from "../Alert/Alert";
 import iconSet from "../../fonts/selection.json";
 import IcomoonReact from "icomoon-react";
+import { useDispatch } from "react-redux";
+import { createPost, getAllPosts } from "../../store/actions/postActions";
 
 const NewPost = () => {
+  const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const [file, setFile] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -30,15 +32,9 @@ const NewPost = () => {
       data.append("content", e.target.content.value);
       if (file) data.append("image_url", file);
 
-      await axios
-        .post("api/post", data)
-        .then((res) => {
-          setErrorMessage("");
-          resetPost();
-        })
-        .catch((err) => {
-          setErrorMessage(err.response.data.error);
-        });
+      await dispatch(createPost(data));
+      dispatch(getAllPosts());
+      resetPost();
     } else {
       setErrorMessage("La publication doit contenir du texte");
     }
