@@ -45,11 +45,6 @@ const PostCard = ({ post }) => {
     }
   };
 
-  // Reset le state pour retirer la preview
-  const removeSelectedImage = () => {
-    setFile("");
-  };
-
   const handlePostEdit = async (e) => {
     e.preventDefault();
     if (postContent) {
@@ -102,7 +97,7 @@ const PostCard = ({ post }) => {
             {postFile && (
               <div className="input-image_preview">
                 <img src={URL.createObjectURL(postFile)} />
-                <button className="btn btn-edit_image" onClick={removeSelectedImage}>
+                <button className="btn btn-edit_image" onClick={setFile("")}>
                   <IcomoonReact iconSet={iconSet} size={12} icon="delete" color="#fff" />
                 </button>
               </div>
