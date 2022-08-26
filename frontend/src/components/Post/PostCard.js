@@ -10,6 +10,7 @@ import IcomoonReact from "icomoon-react";
 import PostLike from "./PostLike";
 import { updatePost } from "../../store/actions/postActions";
 import Alert from "../Alert/Alert";
+import dayjs from "dayjs";
 
 const PostCard = ({ post }) => {
   const dispatch = useDispatch();
@@ -21,6 +22,11 @@ const PostCard = ({ post }) => {
   const [postFile, setPostFile] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const userData = useSelector((state) => state.user.user);
+
+  // Dayjs config
+  require("dayjs/locale/fr");
+  const relativeTime = require("dayjs/plugin/relativeTime");
+  dayjs.extend(relativeTime);
 
   useEffect(() => {
     if (!isEmpty(userData)) {
@@ -67,7 +73,10 @@ const PostCard = ({ post }) => {
             <span className="infos__name">
               {post.User.user_firstname} {post.User.user_lastname} {post.User.user_admin ? <IcomoonReact iconSet={iconSet} size={12} icon="admin" color="#FD2D01" /> : null}
             </span>
-            <span className="infos__date">{post.post_creation_date}</span>
+            <span className="infos__date">{dayjs(post.post_creation_date).locale("fr").fromNow()}</span>
+            {/* <DayJS className="infos__date" element="span">
+              {post.post_creation_date}
+            </DayJS> */}
           </div>
         </div>
         {(isAdmin || isOwner) && (
