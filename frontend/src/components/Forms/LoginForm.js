@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Form.scss";
-import { useNavigate } from "react-router-dom";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Alert from "../Alert/Alert";
@@ -8,7 +7,6 @@ import axios from "axios";
 
 const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -19,7 +17,7 @@ const LoginForm = () => {
         password: e.target.password.value,
       })
       .then((res) => {
-        navigate("/", { replace: true });
+        window.location = "/";
       })
       .catch((err) => {
         setErrorMessage(err.response.data.error);
