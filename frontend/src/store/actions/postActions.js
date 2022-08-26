@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setPosts, setUpdatePost, setLikePost, setDislikePost } from "../feature/postSlice";
+import { setPosts, setUpdatePost, setDeletePost, setLikePost, setDislikePost } from "../feature/postSlice";
 
 const getAllPosts = () => {
   return async (dispatch) => {
@@ -33,6 +33,17 @@ const updatePost = (postId, content) => {
   };
 };
 
+const deletePost = (postId) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`api/post/delete/${postId}`);
+      return dispatch(setDeletePost({ postId }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 const addLikePost = (postId, userId) => {
   return async (dispatch) => {
     try {
@@ -55,4 +66,4 @@ const removeLikePost = (postId, userId) => {
   };
 };
 
-export { getAllPosts, createPost, updatePost, addLikePost, removeLikePost };
+export { getAllPosts, createPost, updatePost, deletePost, addLikePost, removeLikePost };

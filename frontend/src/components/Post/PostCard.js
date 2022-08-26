@@ -8,7 +8,7 @@ import { isEmpty } from "../Utils";
 import iconSet from "../../fonts/selection.json";
 import IcomoonReact from "icomoon-react";
 import PostLike from "./PostLike";
-import { updatePost } from "../../store/actions/postActions";
+import { deletePost, updatePost } from "../../store/actions/postActions";
 import Alert from "../Alert/Alert";
 import dayjs from "dayjs";
 
@@ -64,6 +64,10 @@ const PostCard = ({ post }) => {
     }
   };
 
+  const handleDeletePost = () => {
+    dispatch(deletePost(post.post_id));
+  };
+
   return (
     <div className="card" key={post.post_id}>
       <div className="post__header">
@@ -71,25 +75,34 @@ const PostCard = ({ post }) => {
           <Avatar className="avatar avatar-small" img={imgSrc} />
           <div className="infos__group">
             <span className="infos__name">
-              {post.User.user_firstname} {post.User.user_lastname} {post.User.user_admin ? <IcomoonReact iconSet={iconSet} size={12} icon="admin" color="#FD2D01" /> : null}
+              {post.User.user_firstname} {post.User.user_lastname} {post.User.user_admin ? <IcomoonReact iconSet={iconSet} size={14} icon="admin" color="#FD2D01" /> : null}
             </span>
             <span className="infos__date">{dayjs(post.post_creation_date).locale("fr").fromNow()}</span>
-            {/* <DayJS className="infos__date" element="span">
-              {post.post_creation_date}
-            </DayJS> */}
           </div>
         </div>
         {(isAdmin || isOwner) && (
-          <Button
-            className="btn btn-tertiary btn-admin"
-            icon="edit"
-            color="#8f8a8a"
-            onClick={() => {
-              setPostIsUpdated(!postIsUpdated);
-              setErrorMessage("");
-              setPostContent(`${post.post_content}`);
-            }}
-          ></Button>
+          <div className="infos__admin">
+            <Button
+              className="btn btn-tertiary"
+              icon="edit"
+              color="#8f8a8a"
+              onClick={() => {
+                setPostIsUpdated(!postIsUpdated);
+                setErrorMessage("");
+                setPostContent(`${post.post_content}`);
+              }}
+            ></Button>
+            <Button
+              className="btn btn-tertiary"
+              icon="delete"
+              color="#8f8a8a"
+              onClick={() => {
+                if (window.confirm("Êtes-vous sûr de vouloir supprimer la publication ?")) {
+                  handleDeletePost();
+                }
+              }}
+            ></Button>
+          </div>
         )}
       </div>
       {postIsUpdated ? (
