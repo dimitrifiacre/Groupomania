@@ -22,44 +22,44 @@ const createPost = (data) => {
   };
 };
 
-const updatePost = (postId, content) => {
+const updatePost = (post_id, content) => {
   return async (dispatch) => {
     try {
-      await axios.put(`api/post/${postId}`, { content });
-      return dispatch(setUpdatePost({ postId, content }));
+      await axios.put(`api/post/${post_id}`, { content });
+      return dispatch(setUpdatePost({ post_id, content }));
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-const deletePost = (postId) => {
+const deletePost = (post_id) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`api/post/delete/${postId}`);
-      return dispatch(setDeletePost({ postId }));
+      await axios.delete(`api/post/delete/${post_id}`);
+      return dispatch(setDeletePost({ post_id }));
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-const addLikePost = (postId, userId) => {
+const addLikePost = (post_id, user_id) => {
   return async (dispatch) => {
     try {
-      await axios.post(`api/like/${postId}`, { userId });
-      return dispatch(setLikePost({ postId, userId }));
+      await axios.post(`api/like/${post_id}`, { user_id });
+      return dispatch(setLikePost({ post_id, user_id }));
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-const removeLikePost = (postId, userId) => {
+const removeLikePost = (post_id, user_id) => {
   return async (dispatch) => {
     try {
-      await axios.post(`api/like/${postId}`, { userId });
-      return dispatch(setDislikePost({ postId, userId }));
+      await axios.post(`api/like/${post_id}`, { user_id });
+      return dispatch(setDislikePost({ post_id, user_id }));
     } catch (error) {
       console.log(error);
     }

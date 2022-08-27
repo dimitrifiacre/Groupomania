@@ -11,7 +11,7 @@ export const postSlice = createSlice({
     },
     setUpdatePost: (state, { payload }) => {
       state.posts = state.posts.map((post) => {
-        if (post.post_id === payload.postId) {
+        if (post.post_id === payload.post_id) {
           return { ...post, post_content: payload.content };
         }
 
@@ -19,11 +19,11 @@ export const postSlice = createSlice({
       });
     },
     setDeletePost: (state, { payload }) => {
-      state.posts = state.posts.filter((id) => id.post_id !== payload.postId);
+      state.posts = state.posts.filter((id) => id.post_id !== payload.post_id);
     },
     setLikePost: (state, { payload }) => {
       state.posts = state.posts.map((post) => {
-        if (post.post_id === payload.postId) {
+        if (post.post_id === payload.post_id) {
           return { ...post, Likes: [payload, ...post.Likes] };
         }
 
@@ -32,8 +32,8 @@ export const postSlice = createSlice({
     },
     setDislikePost: (state, { payload }) => {
       state.posts = state.posts.map((post) => {
-        if (post.post_id === payload.postId) {
-          return { ...post, Likes: post.Likes.filter((id) => id.userId !== payload.userId) };
+        if (post.post_id === payload.post_id) {
+          return { ...post, Likes: post.Likes.filter((id) => id.user_id !== payload.user_id) };
         }
 
         return post;
