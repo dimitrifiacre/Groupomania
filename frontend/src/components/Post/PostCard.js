@@ -11,6 +11,7 @@ import PostLike from "./PostLike";
 import { deletePost, updatePost } from "../../store/actions/postActions";
 import Alert from "../Alert/Alert";
 import dayjs from "dayjs";
+import PostComment from "./PostComment";
 
 const PostCard = ({ post }) => {
   const dispatch = useDispatch();
@@ -151,6 +152,7 @@ const PostCard = ({ post }) => {
           {post.Comments.length}
         </div>
       </div>
+      <PostComment post={post} />
     </div>
   );
 };

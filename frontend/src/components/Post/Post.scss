@@ -58,6 +58,10 @@
     justify-content: center;
     align-items: flex-start;
     gap: 4px;
+
+    &--comment {
+      gap: 2px;
+    }
   }
 
   &__name {
@@ -78,5 +82,21 @@
     position: absolute;
     right: 0;
     top: 0;
+  }
+}
+
+.comments-container {
+  @include flex-column-skretch;
+  gap: 12px;
+}
+
+.comment {
+  &__infos {
+    display: flex;
+    gap: 12px;
+  }
+
+  &__content {
+    font-size: 16px;
   }
 }
