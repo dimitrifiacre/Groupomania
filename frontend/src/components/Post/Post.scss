@@ -99,4 +99,15 @@
   &__content {
     font-size: 16px;
   }
+
+  &__write-comment {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__group {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+  }
 }

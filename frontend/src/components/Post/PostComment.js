@@ -7,10 +7,12 @@ import { isEmpty } from "../Utils";
 import iconSet from "../../fonts/selection.json";
 import IcomoonReact from "icomoon-react";
 import dayjs from "dayjs";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
 
 const PostComment = ({ post }) => {
   const dispatch = useDispatch();
-  const [imgSrc, setImgSrc] = useState("");
+  const [userDataAvatar, setUserDataAvatar] = useState("");
   const [content, setContent] = useState("");
   const userData = useSelector((state) => state.user.user);
 
@@ -19,16 +21,15 @@ const PostComment = ({ post }) => {
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime);
 
-  // Récupère l'avatar de l'utilisateur ou lui met un avatar par défaut
   useEffect(() => {
-    if (!isEmpty(post.Comments)) {
-      if (post.Comments[0].User.user_avatar_url == null) {
-        setImgSrc(avatarImg);
+    if (!isEmpty(userData)) {
+      if (userData.user_avatar_url == null) {
+        setUserDataAvatar(avatarImg);
       } else {
-        setImgSrc(`${process.env.REACT_APP_API_URL}img/${post.Comments.User.user_avatar_url}`);
+        setUserDataAvatar(`${process.env.REACT_APP_API_URL}img/${userData.user_avatar_url}`);
       }
     }
-  }, []);
+  }, [userData]);
 
   return (
     <>
@@ -40,7 +41,7 @@ const PostComment = ({ post }) => {
               return (
                 <div className="comment" key={comment.comment_id}>
                   <div className="comment__infos">
-                    <Avatar className="avatar avatar-small" img={imgSrc} />
+                    <Avatar className="avatar avatar-small" img={comment.User.user_avatar_url == null ? avatarImg : `${process.env.REACT_APP_API_URL}img/${comment.User.user_avatar_url}`} />
                     <div className="infos__group infos__group--comment">
                       <span className="infos__name">
                         {comment.User.user_firstname} {comment.User.user_lastname} {comment.User.user_admin ? <IcomoonReact iconSet={iconSet} size={14} icon="admin" color="#FD2D01" /> : null}
@@ -52,7 +53,14 @@ const PostComment = ({ post }) => {
                 </div>
               );
             })}
-            <div className="">Écrire un commentaire</div>
+
+            <div className="comment__write-comment">
+              <div className="comment__group">
+                <Avatar className="avatar avatar-small" img={userDataAvatar} />
+                <Input type="text" name="content" placeholder="Écrire un commentaire" />
+              </div>
+              <Button type="submit" className="btn btn-primary" icon="reply" color="#fff"></Button>
+            </div>
           </div>
         </>
       )}
