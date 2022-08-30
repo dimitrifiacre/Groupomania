@@ -9,15 +9,15 @@ import { isEmpty } from "../Utils";
 import axios from "axios";
 
 const Navbar = () => {
-  const [imgSrc, setImgSrc] = useState("");
+  const [userDataAvatar, setUserDataAvatar] = useState("");
   const userData = useSelector((state) => state.user.user);
 
   useEffect(() => {
     if (!isEmpty(userData)) {
       if (userData.user_avatar_url == null) {
-        setImgSrc(avatarImg);
+        setUserDataAvatar(avatarImg);
       } else {
-        setImgSrc(`${process.env.REACT_APP_API_URL}img/${userData.user_avatar_url}`);
+        setUserDataAvatar(`${process.env.REACT_APP_API_URL}img/${userData.user_avatar_url}`);
       }
     }
   }, [userData]);
@@ -42,7 +42,7 @@ const Navbar = () => {
         <div className="nav__profile">
           <Button className="btn btn-secondary" icon="logout" onClick={handleLogout}></Button>
           <Link to="/profile">
-            <Avatar className="avatar avatar-small" img={imgSrc} />
+            <Avatar className="avatar avatar-small" img={userDataAvatar} />
           </Link>
         </div>
       </div>
