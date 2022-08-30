@@ -13,6 +13,7 @@ import { getUser } from "./store/actions/userActions";
 import { getAllPosts } from "./store/actions/postActions";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import PublicRoute from "./components/Routes/PublicRoute";
+import Loader from "./components/Loader/Loader";
 
 const App = () => {
   const [userId, setUserId] = useState(null);
@@ -38,6 +39,7 @@ const App = () => {
   return (
     <UserContext.Provider value={userId}>
       <Router>
+        <Loader />
         {userId && <Navbar />}
         <Routes>
           {/* Public routes */}

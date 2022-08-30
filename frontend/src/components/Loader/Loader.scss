@@ -1,0 +1,28 @@
+@import "../../index.scss";
+
+.loader {
+  background: $color-light-1;
+  position: fixed;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  @include flex-center;
+  animation: loader 0.5s 0.5s ease-out both;
+
+  &__logo {
+    background: no-repeat url("../../assets/groupomania_icon.png");
+    width: 39px;
+    height: 40px;
+  }
+}
+
+@keyframes loader {
+  90% {
+    opacity: 1;
+    z-index: 1;
+  }
+  100% {
+    opacity: 0;
+    z-index: -10;
+  }
+}
