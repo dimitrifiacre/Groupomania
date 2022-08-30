@@ -44,6 +44,16 @@ const deletePost = (post_id) => {
   };
 };
 
+const createComment = (post_id, content) => {
+  return async () => {
+    try {
+      await axios.post(`api/comment/${post_id}`, { content });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 const addLikePost = (post_id, user_id) => {
   return async (dispatch) => {
     try {
@@ -66,4 +76,4 @@ const removeLikePost = (post_id, user_id) => {
   };
 };
 
-export { getAllPosts, createPost, updatePost, deletePost, addLikePost, removeLikePost };
+export { getAllPosts, createPost, updatePost, deletePost, createComment, addLikePost, removeLikePost };
