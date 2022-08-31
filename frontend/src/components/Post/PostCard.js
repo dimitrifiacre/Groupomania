@@ -101,7 +101,7 @@ const PostCard = ({ post }) => {
               color="#8f8a8a"
               onClick={() => {
                 if (window.confirm("Êtes-vous sûr de vouloir supprimer la publication ?")) {
-                  () => dispatch(deletePost(post.post_id));
+                  dispatch(deletePost(post.post_id));
                 }
               }}
             ></Button>
