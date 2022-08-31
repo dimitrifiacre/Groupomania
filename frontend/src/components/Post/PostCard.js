@@ -8,7 +8,7 @@ import { isEmpty } from "../Utils";
 import iconSet from "../../fonts/selection.json";
 import IcomoonReact from "icomoon-react";
 import PostLike from "./PostLike";
-import { deletePost, updatePost } from "../../store/actions/postActions";
+import { deletePost, getAllPosts, updatePost } from "../../store/actions/postActions";
 import Alert from "../Alert/Alert";
 import dayjs from "dayjs";
 import PostComment from "./PostComment";
@@ -21,6 +21,7 @@ const PostCard = ({ post }) => {
   const [postIsUpdated, setPostIsUpdated] = useState(false);
   const [postContent, setPostContent] = useState("");
   const [postFile, setPostFile] = useState("");
+  const [postNewFile, setPostNewFile] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const userData = useSelector((state) => state.user.user);
 
@@ -36,7 +37,6 @@ const PostCard = ({ post }) => {
     }
   }, [userData]);
 
-  // Récupère l'avatar de l'utilisateur ou lui met un avatar par défaut
   useEffect(() => {
     if (post.User.user_avatar_url == null) {
       setImgSrc(avatarImg);
@@ -49,6 +49,7 @@ const PostCard = ({ post }) => {
   const changeImage = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setPostFile(e.target.files[0]);
+      setPostNewFile(true);
     }
   };
 
@@ -57,16 +58,16 @@ const PostCard = ({ post }) => {
     if (postContent) {
       const data = new FormData();
       data.append("content", postContent);
-      dispatch(updatePost(post.post_id, postContent));
+      if (postFile) data.append("image_url", postFile);
+      await dispatch(updatePost(post.post_id, data));
+      dispatch(getAllPosts());
+
       setErrorMessage("");
       setPostIsUpdated(false);
+      setPostNewFile(false);
     } else {
       setErrorMessage("La publication doit contenir du texte");
     }
-  };
-
-  const handleDeletePost = () => {
-    dispatch(deletePost(post.post_id));
   };
 
   return (
@@ -91,6 +92,7 @@ const PostCard = ({ post }) => {
                 setPostIsUpdated(!postIsUpdated);
                 setErrorMessage("");
                 setPostContent(`${post.post_content}`);
+                setPostFile(post.post_image_url ? `${post.post_image_url}` : null);
               }}
             ></Button>
             <Button
@@ -99,7 +101,7 @@ const PostCard = ({ post }) => {
               color="#8f8a8a"
               onClick={() => {
                 if (window.confirm("Êtes-vous sûr de vouloir supprimer la publication ?")) {
-                  handleDeletePost();
+                  () => dispatch(deletePost(post.post_id));
                 }
               }}
             ></Button>
@@ -117,15 +119,14 @@ const PostCard = ({ post }) => {
                 <IcomoonReact iconSet={iconSet} size={14} icon="image-plus" color="#8f8a8a" />
               </label>
             </div>
+
             {postFile && (
               <div className="input-image_preview">
-                <img src={URL.createObjectURL(postFile)} />
-                <button className="btn btn-edit_image" onClick={setFile("")}>
-                  <IcomoonReact iconSet={iconSet} size={12} icon="delete" color="#fff" />
-                </button>
+                <img className="post__image" crossOrigin="anonymous" src={postNewFile ? URL.createObjectURL(postFile) : `${process.env.REACT_APP_API_URL}img/${postFile}`} alt="Photo de la publication" />
+                <Button className="btn btn-edit_image" icon="delete" color="#fff" onClick={() => setPostFile("")}></Button>
               </div>
             )}
-            {post.post_image_url}
+
             <div className="post-group--buttons">
               <Button
                 className="btn btn-secondary"

@@ -20,29 +20,20 @@ const NewPost = () => {
     }
   };
 
-  // Reset le state pour retirer la preview
-  const removeSelectedImage = () => {
-    setFile("");
-  };
-
   const handleNewPost = async (e) => {
     e.preventDefault();
     if (content) {
       const data = new FormData();
       data.append("content", e.target.content.value);
       if (file) data.append("image_url", file);
-
       await dispatch(createPost(data));
       dispatch(getAllPosts());
-      resetPost();
+
+      setContent("");
+      setFile("");
     } else {
       setErrorMessage("La publication doit contenir du texte");
     }
-  };
-
-  const resetPost = () => {
-    setContent("");
-    setFile("");
   };
 
   return (
@@ -59,9 +50,7 @@ const NewPost = () => {
         {file && (
           <div className="input-image_preview">
             <img src={URL.createObjectURL(file)} />
-            <button className="btn btn-edit_image" onClick={removeSelectedImage}>
-              <IcomoonReact iconSet={iconSet} size={12} icon="delete" color="#fff" />
-            </button>
+            <Button className="btn btn-edit_image" icon="delete" color="#fff" onClick={() => setFile("")}></Button>
           </div>
         )}
         <Button type="submit" className="btn btn-primary" value="Publier"></Button>

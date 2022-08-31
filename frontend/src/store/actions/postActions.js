@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setPosts, setUpdatePost, setDeletePost, setLikePost, setDislikePost } from "../feature/postSlice";
+import { setPosts, setDeletePost, setLikePost, setDislikePost } from "../feature/postSlice";
 
 const getAllPosts = () => {
   return async (dispatch) => {
@@ -22,11 +22,10 @@ const createPost = (data) => {
   };
 };
 
-const updatePost = (post_id, content) => {
-  return async (dispatch) => {
+const updatePost = (post_id, data) => {
+  return async () => {
     try {
-      await axios.put(`api/post/${post_id}`, { content });
-      return dispatch(setUpdatePost({ post_id, content }));
+      await axios.put(`api/post/${post_id}`, data);
     } catch (error) {
       console.log(error);
     }

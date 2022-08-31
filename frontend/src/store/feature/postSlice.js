@@ -9,15 +9,6 @@ export const postSlice = createSlice({
     setPosts: (state, { payload }) => {
       state.posts = payload;
     },
-    setUpdatePost: (state, { payload }) => {
-      state.posts = state.posts.map((post) => {
-        if (post.post_id === payload.post_id) {
-          return { ...post, post_content: payload.content };
-        }
-
-        return post;
-      });
-    },
     setDeletePost: (state, { payload }) => {
       state.posts = state.posts.filter((id) => id.post_id !== payload.post_id);
     },
@@ -42,5 +33,5 @@ export const postSlice = createSlice({
   },
 });
 
-export const { setPosts, setUpdatePost, setDeletePost, setLikePost, setDislikePost } = postSlice.actions;
+export const { setPosts, setDeletePost, setLikePost, setDislikePost } = postSlice.actions;
 export default postSlice.reducer;
