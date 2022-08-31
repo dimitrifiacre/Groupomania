@@ -5,6 +5,7 @@
     width: 100%;
     @include flex-row-center;
     position: relative;
+    gap: 12px;
   }
 
   &-text {
