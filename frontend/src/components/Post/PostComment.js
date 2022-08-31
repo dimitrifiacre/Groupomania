@@ -3,12 +3,13 @@ import "./Post.scss";
 import { useDispatch, useSelector } from "react-redux";
 import avatarImg from "../../assets/default-avatar.png";
 import Avatar from "../Avatar/Avatar";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
 import { isEmpty } from "../Utils";
+import dayjs from "dayjs";
+import { createComment, getAllPosts } from "../../store/actions/postActions";
 import iconSet from "../../fonts/selection.json";
 import IcomoonReact from "icomoon-react";
-import dayjs from "dayjs";
-import Button from "../Button/Button";
-import { createComment, getAllPosts } from "../../store/actions/postActions";
 
 const PostComment = ({ post }) => {
   const dispatch = useDispatch();
@@ -36,8 +37,6 @@ const PostComment = ({ post }) => {
     if (content) {
       await dispatch(createComment(post.post_id, content)).then(() => dispatch(getAllPosts()));
       setContent("");
-    } else {
-      console.log("Le commentaire doit contenir du texte");
     }
   };
 
@@ -69,7 +68,7 @@ const PostComment = ({ post }) => {
       <form className="comment__write-comment" onSubmit={handleComment}>
         <div className="comment__group">
           <Avatar className="avatar avatar-small" img={userDataAvatar} />
-          <input className="input-text" type="text" id="content" name="content" value={content} placeholder="Écrire un commentaire" onChange={(e) => setContent(e.target.value)} />
+          <Input type="text" name="content" value={content} placeholder="Écrire un commentaire" onChange={(e) => setContent(e.target.value)} />
         </div>
         <Button type="submit" className="btn btn-primary" icon="reply" color="#fff"></Button>
       </form>

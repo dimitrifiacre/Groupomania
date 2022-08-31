@@ -1,16 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Input.scss";
 
-const Input = ({ type, id, name, placeholder }) => {
-  const [inputValue, setInputValue] = useState("");
-
-  const handleInput = (e) => {
-    setInputValue(e.target.value);
-  };
-
+const Input = ({ type, id, name, value, placeholder, onChange }) => {
   return (
     <>
-      <input className="input-text" type={type} id={id} name={name} value={inputValue} placeholder={placeholder} onChange={handleInput} />
+      <input className="input-text" type={type} id={id} name={name} value={value} placeholder={placeholder} onChange={onChange} />
     </>
   );
 };
