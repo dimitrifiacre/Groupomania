@@ -13,7 +13,7 @@ import IcomoonReact from "icomoon-react";
 
 const PostComment = ({ post }) => {
   const dispatch = useDispatch();
-  const [content, setContent] = useState("");
+  const [Commentcontent, setCommentContent] = useState("");
   const [userDataAvatar, setUserDataAvatar] = useState("");
   const userData = useSelector((state) => state.user.user);
 
@@ -34,9 +34,9 @@ const PostComment = ({ post }) => {
 
   const handleComment = async (e) => {
     e.preventDefault();
-    if (content) {
-      await dispatch(createComment(post.post_id, content)).then(() => dispatch(getAllPosts()));
-      setContent("");
+    if (Commentcontent) {
+      await dispatch(createComment(post.post_id, Commentcontent)).then(() => dispatch(getAllPosts()));
+      setCommentContent("");
     }
   };
 
@@ -68,7 +68,7 @@ const PostComment = ({ post }) => {
       <form className="comment__write-comment" onSubmit={handleComment}>
         <div className="comment__group">
           <Avatar className="avatar avatar-small" img={userDataAvatar} />
-          <Input type="text" name="content" value={content} placeholder="Écrire un commentaire" onChange={(e) => setContent(e.target.value)} />
+          <Input type="text" name="content" value={Commentcontent} placeholder="Écrire un commentaire" onChange={(e) => setCommentContent(e.target.value)} />
         </div>
         <Button type="submit" className="btn btn-primary" icon="reply" color="#fff"></Button>
       </form>
