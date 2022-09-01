@@ -25,7 +25,7 @@
      npm install
      ```
 2. Configurer les variables d'environnement  
-Modifier le nom du fichier **example.env** en **.env** et remplir toutes les informations pour gérer la connexion à votre base de donnée (**mysql** est conseillé).
+Modifier le nom du fichier **example.env** en **.env** et remplir toutes les informations.
 3. Créer la base de donnée
     ```
     npx sequelize-cli db:migrate
@@ -34,7 +34,7 @@ Modifier le nom du fichier **example.env** en **.env** et remplir toutes les inf
     ```
     npm start
     ```
-    *Port par défaut : `3000` (http://localhost:3000)*
+    *Port par défaut : `5000`*
 5. Utiliser le compte de démonstration  
 Générer le compte administrateur :
     ```
@@ -43,3 +43,17 @@ Générer le compte administrateur :
     Utiliser les identifiants `admin@groupomania.com` pour l'email et `Password1234` pour le mot de passe.
     > **Warning**
     > Par sécurité, supprimer l'utilisateur si le projet devient public.
+
+## Installation frontend
+1. Installer les dépendences
+*(dans le dossier `frontend`)*
+     ```
+     npm install
+     ```
+2. Configurer les variables d'environnement  
+Modifier le nom du fichier **example.env** en **.env** et remplir toutes les informations.
+3. Lancer le serveur
+    ```
+    npm start
+    ```
+    *Port par défaut : `3000`*
