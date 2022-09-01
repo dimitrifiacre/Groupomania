@@ -17,9 +17,7 @@ const Profile = () => {
       if (userData.user_avatar_url == null) {
         setUserDataAvatar(avatarImg);
       } else {
-        setUserDataAvatar(
-          `${process.env.REACT_APP_API_URL}img/${userData.user_avatar_url}`
-        );
+        setUserDataAvatar(`${process.env.REACT_APP_API_URL}img/${userData.user_avatar_url}`);
       }
     }
   }, [userData]);
@@ -33,23 +31,12 @@ const Profile = () => {
             <Avatar className="avatar profile__avatar" img={userDataAvatar} />
             <div>
               <span className="profile__name">
-                {userData.user_firstname} {userData.user_lastname}{" "}
-                {userData.user_admin ? (
-                  <IcomoonReact
-                    iconSet={iconSet}
-                    size={16}
-                    icon="admin"
-                    color="#FD2D01"
-                  />
-                ) : null}
+                {userData.user_firstname} {userData.user_lastname} {userData.user_admin ? <IcomoonReact iconSet={iconSet} size={16} icon="admin" color="#FD2D01" /> : null}
               </span>
               <span className="profile__job">{userData.user_job}</span>
             </div>
           </div>
-          <Button
-            className="btn btn-secondary"
-            value="Modifier mon profil"
-          ></Button>
+          <Button className="btn btn-secondary" value="Modifier mon profil"></Button>
         </div>
       </div>
     </div>
