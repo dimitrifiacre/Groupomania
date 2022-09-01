@@ -6,12 +6,10 @@ const Home = () => {
   document.title = "Fil d'actualité – Groupomania";
 
   return (
-    <>
-      <div className="container">
-        <PostForm />
-        <Feed />
-      </div>
-    </>
+    <div className="container">
+      <PostForm />
+      <Feed />
+    </div>
   );
 };
 
