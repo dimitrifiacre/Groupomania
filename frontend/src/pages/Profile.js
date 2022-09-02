@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Profile.scss";
 import avatarImg from "../assets/default-avatar.png";
 import Avatar from "../components/Avatar/Avatar";
@@ -9,7 +10,7 @@ import IcomoonReact from "icomoon-react";
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
 import Alert from "../components/Alert/Alert";
-import { getUser, updateUser } from "../store/actions/userActions";
+import { getUser, updateUser, deleteUser } from "../store/actions/userActions";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -58,6 +59,13 @@ const Profile = () => {
     }
   };
 
+  const deleteAccount = async () => {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer votre compte ?")) {
+      await dispatch(deleteUser(userData.user_id));
+      window.location = "/";
+    }
+  };
+
   return (
     <div className="container">
       <div className="profile">
@@ -85,6 +93,9 @@ const Profile = () => {
                   <Input type="text" name="lastname" value={lastname} placeholder="Nom" onChange={(e) => setLastname(e.target.value)} />
                 </div>
                 <Input type="job" name="job" value={job} placeholder="Poste" onChange={(e) => setJob(e.target.value)} />
+                <Link to="#" onClick={deleteAccount}>
+                  Supprimer mon compte
+                </Link>
               </div>
             </form>
           </>

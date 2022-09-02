@@ -22,4 +22,14 @@ const updateUser = (user_id, data) => {
   };
 };
 
-export { getUser, updateUser };
+const deleteUser = (user_id) => {
+  return async () => {
+    try {
+      await axios.delete(`api/user/delete/${user_id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export { getUser, updateUser, deleteUser };
