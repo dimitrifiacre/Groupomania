@@ -52,6 +52,13 @@
   right: 10px;
   top: 10px;
 
+  &--avatar {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
   &:hover {
     background-color: rgba(0, 0, 0, 0.8);
   }

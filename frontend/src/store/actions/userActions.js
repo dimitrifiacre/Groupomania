@@ -12,4 +12,14 @@ const getUser = (user_id) => {
   };
 };
 
-export { getUser };
+const updateUser = (user_id, data) => {
+  return async () => {
+    try {
+      await axios.put(`api/user/${user_id}`, data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export { getUser, updateUser };

@@ -23,9 +23,12 @@
 
   &__user {
     background-color: $color-light-1;
+    padding: 24px;
+  }
+
+  &__header {
     display: flex;
     justify-content: space-between;
-    padding: 24px;
   }
 
   &__infos {
@@ -49,11 +52,22 @@
   &__name {
     font-size: 18px;
     font-weight: 600;
+    line-height: 21px;
     @include flex-row-center;
     gap: 4px;
   }
 
   &__job {
     color: $color-grey-2;
+  }
+
+  &__buttons-group {
+    display: flex;
+    gap: 12px;
+  }
+
+  &__change-avatar {
+    @include flex-row-center;
+    position: relative;
   }
 }
