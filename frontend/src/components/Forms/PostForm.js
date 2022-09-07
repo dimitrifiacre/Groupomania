@@ -39,7 +39,7 @@ const NewPost = () => {
     e.preventDefault();
     if (content) {
       const data = new FormData();
-      data.append("content", e.target.content.value);
+      data.append("content", content);
       if (file) data.append("image_url", file);
       await dispatch(createPost(data));
       dispatch(getAllPosts());

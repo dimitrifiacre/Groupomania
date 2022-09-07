@@ -71,7 +71,7 @@ const PostCard = ({ post }) => {
   };
 
   return (
-    <div className="card" key={post.post_id}>
+    <div className="card">
       <div className="post__header">
         <div className="post__infos">
           <Avatar className="avatar avatar-small" img={imgSrc} />
