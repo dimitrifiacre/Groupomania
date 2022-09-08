@@ -93,9 +93,7 @@ const Profile = () => {
                   <Input type="text" name="lastname" value={lastname} placeholder="Nom" onChange={(e) => setLastname(e.target.value)} />
                 </div>
                 <Input type="job" name="job" value={job} placeholder="Poste" onChange={(e) => setJob(e.target.value)} />
-                <Link to="#" onClick={deleteAccount}>
-                  Supprimer mon compte
-                </Link>
+                <Link to="#" onClick={deleteAccount}>Supprimer mon compte</Link>
               </div>
             </form>
           </>
@@ -111,16 +109,7 @@ const Profile = () => {
                   <span className="profile__job">{userData.user_job}</span>
                 </div>
               </div>
-              <Button
-                className="btn btn-secondary"
-                value="Modifier mon profil"
-                onClick={() => {
-                  setProfileIsUpdated(true);
-                  setFirstname(userData.user_firstname);
-                  setLastname(userData.user_lastname);
-                  setJob(userData.user_job);
-                }}
-              ></Button>
+              <Button className="btn btn-secondary" value="Modifier mon profil" onClick={() => {setProfileIsUpdated(true);setFirstname(userData.user_firstname);setLastname(userData.user_lastname);setJob(userData.user_job)}}></Button>
             </div>
           </div>
         )}
