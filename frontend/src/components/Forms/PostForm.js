@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
 import "./Form.scss";
-import Button from "../Button/Button";
-import Alert from "../Alert/Alert";
-import iconSet from "../../fonts/selection.json";
-import IcomoonReact from "icomoon-react";
 import { useDispatch, useSelector } from "react-redux";
-import { createPost, getAllPosts } from "../../store/actions/postActions";
-import Avatar from "../Avatar/Avatar";
+import { createPost, getAllPosts } from "../../app/actions/postActions";
+import iconSet from "../../assets/fonts/selection.json";
+import IcomoonReact from "icomoon-react";
+import { Button, Alert, Avatar } from "../index";
 import avatarImg from "../../assets/default-avatar.png";
 import { isEmpty } from "../Utils";
 
 const NewPost = () => {
-  const dispatch = useDispatch();
   const [content, setContent] = useState("");
   const [file, setFile] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [userDataAvatar, setUserDataAvatar] = useState("");
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.user);
 
+  // Si null affiche un avatar par défaut sinon affiche l'avatar de l'utilisateur
   useEffect(() => {
     if (!isEmpty(userData)) {
       if (userData.user_avatar_url == null) {

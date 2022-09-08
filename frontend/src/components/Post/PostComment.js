@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./Post.scss";
 import { useDispatch, useSelector } from "react-redux";
-import avatarImg from "../../assets/default-avatar.png";
-import Avatar from "../Avatar/Avatar";
-import Input from "../Input/Input";
-import Button from "../Button/Button";
-import { isEmpty } from "../Utils";
-import dayjs from "dayjs";
-import { createComment, getAllPosts } from "../../store/actions/postActions";
-import iconSet from "../../fonts/selection.json";
+import { createComment, getAllPosts } from "../../app/actions/postActions";
+import iconSet from "../../assets/fonts/selection.json";
 import IcomoonReact from "icomoon-react";
+import dayjs from "dayjs";
+import { Avatar, Button, Input } from "../index";
+import avatarImg from "../../assets/default-avatar.png";
+import { isEmpty } from "../Utils";
 
 const PostComment = ({ post }) => {
-  const dispatch = useDispatch();
   const [Commentcontent, setCommentContent] = useState("");
   const [userDataAvatar, setUserDataAvatar] = useState("");
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.user);
 
   // Dayjs config
@@ -22,6 +20,7 @@ const PostComment = ({ post }) => {
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime);
 
+  // Si null affiche un avatar par défaut sinon affiche l'avatar de l'utilisateur
   useEffect(() => {
     if (!isEmpty(userData)) {
       if (userData.user_avatar_url == null) {

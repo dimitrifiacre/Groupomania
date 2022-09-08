@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import RegisterForm from "../components/Forms/RegisterForm";
+import { RegisterForm } from "../components";
 import logo from "../assets/groupomania_logo.png";
 
 const Register = () => {

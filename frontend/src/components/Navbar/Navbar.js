@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
-import avatarImg from "../../assets/default-avatar.png";
-import Avatar from "../Avatar/Avatar";
-import Button from "../Button/Button";
-import { useSelector } from "react-redux";
-import { isEmpty } from "../Utils";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { Button, Avatar } from "../index";
+import avatarImg from "../../assets/default-avatar.png";
+import { isEmpty } from "../Utils";
 
 const Navbar = () => {
   const [userDataAvatar, setUserDataAvatar] = useState("");
   const userData = useSelector((state) => state.user.user);
 
+  // Si null affiche un avatar par défaut sinon affiche l'avatar de l'utilisateur
   useEffect(() => {
     if (!isEmpty(userData)) {
       if (userData.user_avatar_url == null) {

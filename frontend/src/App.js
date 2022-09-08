@@ -1,26 +1,23 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { UserContext } from "./components/AppContext";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { getUser } from "./app/actions/userActions";
+import { getAllPosts } from "./app/actions/postActions";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
-import Navbar from "./components/Navbar/Navbar";
-import { useDispatch } from "react-redux";
-import { getUser } from "./store/actions/userActions";
-import { getAllPosts } from "./store/actions/postActions";
-import PrivateRoute from "./components/Routes/PrivateRoute";
-import PublicRoute from "./components/Routes/PublicRoute";
-import Loader from "./components/Loader/Loader";
+import { Navbar, PublicRoute, PrivateRoute, Loader } from "./components";
+import { UserContext } from "./components/AppContext";
 
 const App = () => {
   const [userId, setUserId] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Récupérer le userId de l'utilisateur connecté
+    // Récupère le user_id de l'utilisateur connecté
     const checkJwt = async () => {
       await axios
         .get("api/auth/checkjwt")
@@ -29,7 +26,7 @@ const App = () => {
     };
     checkJwt();
 
-    // Envoi toutes les données dans mon store (redux)
+    // Si l'utilisateur est connecté, on dispatch les données au store
     if (userId) {
       dispatch(getUser(userId));
       dispatch(getAllPosts());

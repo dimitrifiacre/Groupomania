@@ -1,6 +1,6 @@
 import React from "react";
 import "./Button.scss";
-import iconSet from "../../fonts/selection.json";
+import iconSet from "../../assets/fonts/selection.json";
 import IcomoonReact from "icomoon-react";
 
 const Button = ({ value, className, onClick, icon, color }) => {

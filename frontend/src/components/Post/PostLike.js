@@ -1,16 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Post.scss";
-import { addLikePost, removeLikePost } from "../../store/actions/postActions";
-import iconSet from "../../fonts/selection.json";
+import { useDispatch } from "react-redux";
+import { addLikePost, removeLikePost } from "../../app/actions/postActions";
+import iconSet from "../../assets/fonts/selection.json";
 import IcomoonReact from "icomoon-react";
 import { UserContext } from "../AppContext";
-import { useDispatch } from "react-redux";
 
 const PostLike = ({ post }) => {
   const [postLiked, setPostLiked] = useState(false);
   const dispatch = useDispatch();
   const userId = useContext(UserContext);
 
+  // Défini dans un hook si l'utilisateur connecté a déjà liké le post
   useEffect(() => {
     post.Likes.map((user) => user.user_id === userId && setPostLiked(true));
   }, [post, userId]);

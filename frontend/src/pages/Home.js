@@ -1,6 +1,5 @@
 import React from "react";
-import PostForm from "../components/Forms/PostForm";
-import Feed from "../components/Post/Feed";
+import { PostForm, Feed } from "../components";
 
 const Home = () => {
   document.title = "Fil d'actualité – Groupomania";

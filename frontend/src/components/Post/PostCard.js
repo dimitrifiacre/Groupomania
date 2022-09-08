@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./Post.scss";
 import { useDispatch, useSelector } from "react-redux";
-import avatarImg from "../../assets/default-avatar.png";
-import Avatar from "../Avatar/Avatar";
-import Button from "../Button/Button";
-import { isEmpty } from "../Utils";
-import iconSet from "../../fonts/selection.json";
+import { deletePost, getAllPosts, updatePost } from "../../app/actions/postActions";
+import iconSet from "../../assets/fonts/selection.json";
 import IcomoonReact from "icomoon-react";
-import PostLike from "./PostLike";
-import { deletePost, getAllPosts, updatePost } from "../../store/actions/postActions";
-import Alert from "../Alert/Alert";
 import dayjs from "dayjs";
-import PostComment from "./PostComment";
+import { Alert, Avatar, Button, PostLike, PostComment } from "../index";
+import avatarImg from "../../assets/default-avatar.png";
+import { isEmpty } from "../Utils";
 
 const PostCard = ({ post }) => {
-  const dispatch = useDispatch();
   const [imgSrc, setImgSrc] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
@@ -23,6 +18,7 @@ const PostCard = ({ post }) => {
   const [postFile, setPostFile] = useState("");
   const [postNewFile, setPostNewFile] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.user);
 
   // Dayjs config
@@ -30,6 +26,7 @@ const PostCard = ({ post }) => {
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime);
 
+  // Défini si l'utilisateur connecté est admin ou créateur du post
   useEffect(() => {
     if (!isEmpty(userData)) {
       if (userData.user_admin === true) setIsAdmin(true);
@@ -37,6 +34,7 @@ const PostCard = ({ post }) => {
     }
   }, [userData]);
 
+  // Si null affiche un avatar par défaut sinon affiche l'avatar de l'utilisateur
   useEffect(() => {
     if (post.User.user_avatar_url == null) {
       setImgSrc(avatarImg);
@@ -62,6 +60,7 @@ const PostCard = ({ post }) => {
       await dispatch(updatePost(post.post_id, data));
       dispatch(getAllPosts());
 
+      // Reset hook
       setErrorMessage("");
       setPostIsUpdated(false);
       setPostNewFile(false);
@@ -84,27 +83,8 @@ const PostCard = ({ post }) => {
         </div>
         {(isAdmin || isOwner) && (
           <div className="infos__admin">
-            <Button
-              className="btn btn-tertiary"
-              icon="edit"
-              color="#8f8a8a"
-              onClick={() => {
-                setPostIsUpdated(!postIsUpdated);
-                setErrorMessage("");
-                setPostContent(`${post.post_content}`);
-                setPostFile(post.post_image_url ? `${post.post_image_url}` : null);
-              }}
-            ></Button>
-            <Button
-              className="btn btn-tertiary"
-              icon="delete"
-              color="#8f8a8a"
-              onClick={() => {
-                if (window.confirm("Êtes-vous sûr de vouloir supprimer la publication ?")) {
-                  dispatch(deletePost(post.post_id));
-                }
-              }}
-            ></Button>
+            <Button className="btn btn-tertiary" icon="edit" color="#8f8a8a" onClick={() => {setPostIsUpdated(!postIsUpdated);setErrorMessage("");setPostContent(`${post.post_content}`);setPostFile(post.post_image_url ? `${post.post_image_url}` : null)}}></Button>
+            <Button className="btn btn-tertiary" icon="delete" color="#8f8a8a" onClick={() => {if (window.confirm("Êtes-vous sûr de vouloir supprimer la publication ?")) {dispatch(deletePost(post.post_id))}}}></Button>
           </div>
         )}
       </div>
@@ -119,22 +99,14 @@ const PostCard = ({ post }) => {
                 <IcomoonReact iconSet={iconSet} size={14} icon="image-plus" color="#8f8a8a" />
               </label>
             </div>
-
             {postFile && (
               <div className="input-image_preview">
                 <img className="post__image" crossOrigin="anonymous" src={postNewFile ? URL.createObjectURL(postFile) : `${process.env.REACT_APP_API_URL}img/${postFile}`} alt="Photo de la publication" />
                 <Button className="btn btn-edit_image" icon="delete" color="#fff" onClick={() => setPostFile("")}></Button>
               </div>
             )}
-
             <div className="post-group--buttons">
-              <Button
-                className="btn btn-secondary"
-                value="Annuler"
-                onClick={() => {
-                  setPostIsUpdated(!postIsUpdated);
-                }}
-              ></Button>
+              <Button className="btn btn-secondary" value="Annuler" onClick={() => {setPostIsUpdated(!postIsUpdated)}}></Button>
               <Button type="submit" className="btn btn-primary" value="Modifier ma publication"></Button>
             </div>
           </form>
@@ -145,7 +117,6 @@ const PostCard = ({ post }) => {
           {post.post_image_url && <img className="post__image" crossOrigin="anonymous" src={`${process.env.REACT_APP_API_URL}img/${post.post_image_url}`} alt="Photo de la publication" />}
         </div>
       )}
-
       <div className="post__footer">
         <PostLike post={post} />
         <div className="post__comments">

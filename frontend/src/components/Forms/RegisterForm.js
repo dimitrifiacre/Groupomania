@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import "./Form.scss";
 import { useNavigate } from "react-router-dom";
-import Input from "../Input/Input";
-import Button from "../Button/Button";
-import Alert from "../Alert/Alert";
 import axios from "axios";
+import { Alert, Button, Input } from "../index";
 
 const RegisterForm = () => {
   const [firstname, setFirstname] = useState("");
@@ -18,15 +16,9 @@ const RegisterForm = () => {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    axios
-      .post("api/auth/register", {
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        password: password,
-      })
+    axios.post("api/auth/register", {firstname: firstname, lastname: lastname, email: email, password: password})
       .then((res) => {
-        setTimeout(() => navigate("/login", { replace: true }), 2000);
+        setTimeout(() => navigate("/login", { replace: true }), 2500);
         setSuccessMessage(res.data.message);
         setErrorMessage("");
       })

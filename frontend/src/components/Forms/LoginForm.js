@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import "./Form.scss";
-import Input from "../Input/Input";
-import Button from "../Button/Button";
-import Alert from "../Alert/Alert";
 import axios from "axios";
+import { Alert, Button, Input } from "../index";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -13,17 +11,9 @@ const LoginForm = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    axios
-      .post("api/auth/login", {
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        window.location = "/";
-      })
-      .catch((err) => {
-        setErrorMessage(err.response.data.error);
-      });
+    axios.post("api/auth/login", { email: email, password: password })
+      .then((res) => {window.location = "/"})
+      .catch((err) => {setErrorMessage(err.response.data.error)});
   };
 
   return (

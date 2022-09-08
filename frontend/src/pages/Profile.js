@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import "./Profile.scss";
-import avatarImg from "../assets/default-avatar.png";
-import Avatar from "../components/Avatar/Avatar";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { isEmpty } from "../components/Utils";
-import iconSet from "../fonts/selection.json";
+import { getUser, updateUser, deleteUser } from "../app/actions/userActions";
+import iconSet from "../assets/fonts/selection.json";
 import IcomoonReact from "icomoon-react";
-import Button from "../components/Button/Button";
-import Input from "../components/Input/Input";
-import Alert from "../components/Alert/Alert";
-import { getUser, updateUser, deleteUser } from "../store/actions/userActions";
+import { Alert, Avatar, Button, Input } from "../components"
+import avatarImg from "../assets/default-avatar.png";
+import { isEmpty } from "../components/Utils";
 
 const Profile = () => {
-  const dispatch = useDispatch();
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [job, setJob] = useState("");
@@ -21,8 +17,10 @@ const Profile = () => {
   const [profileIsUpdated, setProfileIsUpdated] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [userDataAvatar, setUserDataAvatar] = useState("");
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.user);
 
+  // Si null affiche un avatar par défaut sinon affiche l'avatar de l'utilisateur
   useEffect(() => {
     if (!isEmpty(userData)) {
       if (userData.user_avatar_url == null) {
@@ -93,9 +91,7 @@ const Profile = () => {
                   <Input type="text" name="lastname" value={lastname} placeholder="Nom" onChange={(e) => setLastname(e.target.value)} />
                 </div>
                 <Input type="job" name="job" value={job} placeholder="Poste" onChange={(e) => setJob(e.target.value)} />
-                <Link to="#" onClick={deleteAccount}>
-                  Supprimer mon compte
-                </Link>
+                <Link to="#" onClick={deleteAccount}>Supprimer mon compte</Link>
               </div>
             </form>
           </>
@@ -114,12 +110,7 @@ const Profile = () => {
               <Button
                 className="btn btn-secondary"
                 value="Modifier mon profil"
-                onClick={() => {
-                  setProfileIsUpdated(true);
-                  setFirstname(userData.user_firstname);
-                  setLastname(userData.user_lastname);
-                  setJob(userData.user_job);
-                }}
+                onClick={() => {setProfileIsUpdated(true);setFirstname(userData.user_firstname);setLastname(userData.user_lastname);setJob(userData.user_job);}}
               ></Button>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { isEmpty } from "../Utils";
-import PostCard from "./PostCard";
+import { PostCard } from "../index";
 
 const Feed = () => {
   const posts = useSelector((state) => state.post.posts);
